@@ -15,4 +15,3 @@ interface Window {
   ) => void;
   reloadAuthorized: () => void;
 }
-

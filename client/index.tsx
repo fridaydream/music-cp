@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/core/styles';
 import App from '@/pages/App'
-import { storesContext, CounterStore, ThemeStore } from "@/store/store";
+import { storesContext, CounterStore, ThemeStore, AppStore } from "@/store/store";
 import { theme } from './theme'
 
 const root = document.getElementById('root')
@@ -12,6 +12,8 @@ const initialState = window.__INITIAL__STATE__ || {}
 
 const themeStore = new ThemeStore(initialState.themeStore)
 const counterStore = new CounterStore()
+const appStore = new AppStore()
+appStore.init(initialState.appStore)
 
 const createApp = (TheApp: React.ComponentType) => {
   const Main = () => {
@@ -32,7 +34,8 @@ const render = (Component: React.ComponentType) => {
     <storesContext.Provider
       value={{
         themeStore,
-        counterStore
+        counterStore,
+        appStore
       }}
     >
       <BrowserRouter>

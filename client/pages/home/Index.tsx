@@ -1,12 +1,15 @@
 import React from 'react'
-import { observer } from 'mobx-react-lite'
+// import { observer } from 'mobx-react-lite'
 import Helmet from 'react-helmet'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
   useStores,
-} from '../../store/use-stores'
+} from '@/store/use-stores'
+import {
+  clientConfig
+} from '../../../config/github-config'
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +26,9 @@ const useStyles = makeStyles({
 const Home = () => {
   const { themeStore } = useStores()
   const classes = useStyles();
-
+  const gotoLogin = () => {
+    window.location.href = `${clientConfig.oauth_uri}?client_id=${clientConfig.client_id}&redirect_uri=${clientConfig.redirect_uri}`
+  }
   return (
     <>
       <Helmet>
@@ -46,7 +51,7 @@ const Home = () => {
           )
         }
       </ul>
-      <Button className={classes.root}>Default</Button>
+      <Button className={classes.root} onClick={gotoLogin}>github login</Button>
     </>
   )
 }
@@ -65,4 +70,4 @@ Home.getInitialProps = async ({ stores }: HomeProps) => {
   return stores.themeStore.getData()
 }
 
-export default observer(Home)
+export default Home

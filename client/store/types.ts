@@ -14,10 +14,6 @@ export interface ICounterStore {
   toJson: () => ICounterType;
 }
 
-
-export type IStoresKey = 'counterStore' | 'themeStore'
-
-
 export interface NewsItem {
   id: string;
   title: string;
@@ -36,9 +32,33 @@ export interface IThemeStore {
   toJson(): IThemeStoreProps;
 }
 
+export interface Info {
+  id?: number;
+  avatar_url?: string;
+  url?: string;
+  name?: string;
+}
+
+export interface LoginResponse {
+  data: Info;
+}
+
+interface User {
+  isLogin: boolean;
+  info: Info;
+}
+
+export interface IAppStore {
+  user: User
+  login: (code: string) => Promise<unknown>;
+  toJson(): { user: User };
+  init(arg0: User): void;
+}
+
 export interface IStores {
   counterStore: ICounterStore;
   themeStore: IThemeStore;
+  appStore: IAppStore;
 }
 
 declare global {

@@ -5,12 +5,14 @@ import { FC, RouteItem } from './types'
 
 import Home from '@/pages/home/Index'
 import User from '@/pages/user/Index'
+import Login from '@/pages/user/Login'
 
 export default () => (
   <>
     <Route path="/" exact render={() => <Redirect to="/home" />} />
     <Route path="/home" exact component={Home} />
-    <Route path="/user" component={User} />
+    <Route path="/user/info" component={User} />
+    <Route path="/user/login" component={Login} />
   </>
 )
 
@@ -24,10 +26,18 @@ export const routes = [
     // handler: 'index'
   },
   {
-    path: '/user',
+    path: '/user/info',
     exact: true,
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     Component: () => (require('../pages/user/Index').default),
+    // controller: 'page',
+    // handler: 'index'
+  },
+  {
+    path: '/user/login',
+    exact: true,
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    Component: () => (require('../pages/user/Login').default),
     // controller: 'page',
     // handler: 'index'
   }

@@ -4,7 +4,6 @@ import MemoryFs from 'memory-fs'
 import path from 'path'
 import Koa from 'koa'
 import koa2proxymiddleware from 'koa2-proxy-middleware'
-import bodyparser from 'koa-bodyparser'
 // @ts-ignore
 import serverConfig from '../../build/webpack.config.server'
 import NativeModule from 'module'
@@ -58,9 +57,6 @@ serverCompiler.watch({}, (err, stats: webpack.Stats) => {
 })
 
 export default function (app: Koa) {
-  app.use(bodyparser({
-    enableTypes: ['json', 'form', 'text']
-  }))
   const options = {
     targets: {
       // (.*) means anything
