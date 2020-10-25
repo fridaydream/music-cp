@@ -4,15 +4,17 @@ import { Route, Redirect, matchPath } from 'react-router-dom'
 import { FC, RouteItem } from './types'
 
 import Home from '@/pages/home/Index'
-import User from '@/pages/user/Index'
+import Info from '@/pages/user/Info'
 import Login from '@/pages/user/Login'
+import Play from '@/pages/play/Index'
 
 export default () => (
   <>
     <Route path="/" exact render={() => <Redirect to="/home" />} />
     <Route path="/home" exact component={Home} />
-    <Route path="/user/info" component={User} />
+    <Route path="/user/info" component={Info} />
     <Route path="/user/login" component={Login} />
+    <Route path="/play" component={Play} />
   </>
 )
 
@@ -29,7 +31,7 @@ export const routes = [
     path: '/user/info',
     exact: true,
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    Component: () => (require('../pages/user/Index').default),
+    Component: () => (require('../pages/user/Info').default),
     // controller: 'page',
     // handler: 'index'
   },
@@ -38,6 +40,14 @@ export const routes = [
     exact: true,
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     Component: () => (require('../pages/user/Login').default),
+    // controller: 'page',
+    // handler: 'index'
+  },
+  {
+    path: '/play',
+    exact: true,
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    Component: () => (require('../pages/play/Index').default),
     // controller: 'page',
     // handler: 'index'
   }

@@ -3,13 +3,14 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useHistory } from "react-router-dom";
 import {
   useStores,
 } from '@/store/use-stores'
+
 import {
-  clientConfig
-} from '../../../config/github-config'
+  InitialStoresProps
+} from '@/store/types'
 
 const useStyles = makeStyles({
   root: {
@@ -25,9 +26,11 @@ const useStyles = makeStyles({
 
 const Home = () => {
   const { themeStore } = useStores()
+  const history = useHistory();
   const classes = useStyles();
   const gotoLogin = () => {
-    window.location.href = `${clientConfig.oauth_uri}?client_id=${clientConfig.client_id}&redirect_uri=${clientConfig.redirect_uri}`
+    // window.location.href = `${clientConfig.oauth_uri}?client_id=${clientConfig.client_id}&redirect_uri=${clientConfig.redirect_uri}`
+    history.push('/user/login')
   }
   return (
     <>
@@ -56,17 +59,7 @@ const Home = () => {
   )
 }
 
-interface Stores {
-  themeStore: {
-    getData: () => void
-  }
-}
-
-interface HomeProps {
-  stores: Stores;
-}
-
-Home.getInitialProps = async ({ stores }: HomeProps) => {
+Home.getInitialProps = async ({ stores }: InitialStoresProps) => {
   return stores.themeStore.getData()
 }
 

@@ -9,8 +9,11 @@ const App = () => {
       <Link to="/home">
         首页
       </Link>
-      <Link to="/user">
+      <Link to="/user/info">
         用户页
+      </Link>
+      <Link to="/play">
+        播放页
       </Link>
       <Routes />
     </div>

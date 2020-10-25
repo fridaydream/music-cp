@@ -1,19 +1,30 @@
 import { observable, action, toJS } from 'mobx'
 
-import { post } from '@/util/http'
+import { post } from '@/utils/http'
 
 import {
-  IAppStore
+  IAppStore,
+  Info,
+  User
 } from '../types'
+
+const initInfo = {
+  id: 0,
+  avatar_url: '',
+  url: '',
+  name: '',
+}
 
 export default class AppStore implements IAppStore{
   @observable user = {
     isLogin: false,
-    info: {},
+    info: initInfo,
   }
 
-  init(user = {}) {
-    this.user.info = user
+  init(user: User) {
+    if (user) {
+      this.user = user
+    }
   }
 
   @action login(code = '') {
@@ -21,10 +32,8 @@ export default class AppStore implements IAppStore{
     return new Promise((resolve, reject) => {
       post('/user/login', {}, {
         code
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }).then((resp: any) => {
-        console.log('resp', resp);
-        this.user.info = resp.data;
+      }).then((resp) => {
+        this.user.info = resp as Info;
         this.user.isLogin = true
         resolve()
       }).catch(reject)

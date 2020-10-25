@@ -52,6 +52,7 @@ export default async (ctx: Koa.Context, next: () => void) => {
   const html = ejs.render(template, {
     appString: content,
     initialState: serialize(state),
+    ssrPath: serialize(ctx.path),
     meta: helmet.meta.toString(),
     title: helmet.title.toString(),
     style: helmet.style.toString(),

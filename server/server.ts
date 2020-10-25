@@ -6,6 +6,7 @@ import bodyparser from 'koa-bodyparser'
 import session from 'koa-session'
 import Router from '@koa/router'
 import handleLogin from './utils/handle-login'
+import handleMusic from './utils/handle-music'
 
 // import favicon from 'koa-favicon'
 import serverRender from './utils/server-render'
@@ -41,6 +42,7 @@ const router = new Router<DefaultState, Context>({
 
 router.post('/user/login', handleLogin)
 router.get('/user/login', handleLogin)
+router.get('/music/info', handleMusic)
 
 app
   .use(router.routes())

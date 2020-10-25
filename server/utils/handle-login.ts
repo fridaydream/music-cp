@@ -22,7 +22,7 @@ const handleLogin = async (ctx: Koa.Context) => {
   if (!code) {
     return ctx.body = {
       message: 'code is required',
-      errno: 4000
+      errno: 4004
     }
   }
   const params = {
@@ -52,8 +52,7 @@ const handleLogin = async (ctx: Koa.Context) => {
       Authorization: `token ${resObj.access_token}`
     }
   });
-  console.log('resp', resp.data);
-  console.log('typeof resp', typeof resp.data);
+  console.log('login response', resp.data);
 
   // @ts-ignore
   ctx.session = {

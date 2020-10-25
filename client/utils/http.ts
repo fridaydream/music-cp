@@ -20,8 +20,8 @@ export const get = (url: string, params: AxiosParams) => (
     axios.get(parseUrl(url, params))
       .then((resp) => {
         const { data } = resp
-        if (data) {
-          resolve(data)
+        if (data && data.errno === 0) {
+          resolve(data.data)
         } else {
           reject(data)
         }
@@ -34,8 +34,8 @@ export const post = (url: string, params: AxiosParams, requestData: AxiosParams)
     axios.post(parseUrl(url, params), requestData)
       .then((resp) => {
         const { data } = resp
-        if (data) {
-          resolve(data)
+        if (data && data.errno === 0) {
+          resolve(data.data)
         } else {
           reject(data)
         }
