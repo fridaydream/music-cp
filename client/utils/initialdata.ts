@@ -17,6 +17,7 @@ export function requestInitialData(props: InitialStoresProps & QueryProps, compo
     if (typeof window !== 'undefined') {
       // 非同构时，并且getInitialProps存在
       if (window.location.pathname !== window.__SSRPATH__ && component.getInitialProps) {
+        console.log('post===')
         component.getInitialProps(props)
       }
     }

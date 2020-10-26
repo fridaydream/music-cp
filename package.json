@@ -10,6 +10,7 @@
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
     "dev:server": "cross-env NODE_ENV=development nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
     "server:server": "cross-env NODE_ENV=production nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
+    "pm2": "NODE_ENV=production pm2 start --interpreter ./node_modules/.bin/ts-node server/server.ts",
     "build": "npm run clear && npm run build:client && npm run build:server",
     "clear": "rimraf dist",
     "start": "node server/server.ts",

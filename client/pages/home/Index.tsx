@@ -4,6 +4,8 @@ import Helmet from 'react-helmet'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
+import { observer } from 'mobx-react-lite'
+
 import {
   useStores,
 } from '@/store/use-stores'
@@ -63,4 +65,4 @@ Home.getInitialProps = async ({ stores }: InitialStoresProps) => {
   return stores.themeStore.getData()
 }
 
-export default Home
+export default observer(Home)

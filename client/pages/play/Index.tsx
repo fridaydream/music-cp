@@ -66,21 +66,24 @@ const Play = () => {
     stores,
   }, Play)
   const musicLength = music.list.length
-  if (musicLength === 0) {
-    return <>
-      do not search music
-    </>
-  }
+
+  console.log('music.playingId', music.playingId);
   let musicIndex = 0
   if (music.playingId) {
     musicIndex = music.list.findIndex(li => li.id === music.playingId)
     musicIndex === -1 ? musicIndex = 0 : null
   }
-  const playingMusic = music.list[musicIndex]
+  const playingMusic = music.list[musicIndex] || {}
+  console.log('playingMusic', playingMusic.url);
+  // let playing, pause, play
   const { playing, pause, play } = useAudioPlayer({
     src: playingMusic.url
   })
-
+  if (musicLength === 0) {
+    return <>
+      do not search music
+    </>
+  }
   const handlePlayOrder = (type: 'next' | 'previous', index: number) => {
     if (type === 'next') {
       index++
@@ -95,8 +98,7 @@ const Play = () => {
     }
     musicStore.setMusicPlayingId(music.list[index].id)
   }
-  console.log('music.playingId', music.playingId);
-  // load
+
   return (
     <Container maxWidth="sm">
       <Card className={classes.root} variant="outlined">

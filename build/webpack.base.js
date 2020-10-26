@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const webpack = require('webpack')
 
-let isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
   mode: isDev ? 'development': 'production',
@@ -35,8 +35,7 @@ module.exports = {
   },
   plugins: [new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV':  isDev ? '"development"': '"production"',
-      'API_BASE': '"http://localhost:3333"'
+      'NODE_ENV': isDev ? '"development"' : '"production"',
     }
   })]
 }

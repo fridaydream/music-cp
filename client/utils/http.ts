@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const baseUrl = process.env.API_BASE || ''
 
+console.log('baseUrl', baseUrl);
 interface AxiosParams {
   [key: string]: string;
 }
