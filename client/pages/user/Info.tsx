@@ -7,7 +7,7 @@ import {
 
 const Info = () => {
   const { appStore: { user } } = useStores()
-  console.log('user', user.info);
+  console.log('user', user.isLogin);
   if (!user.isLogin) {
     return <>not login</>;
   }

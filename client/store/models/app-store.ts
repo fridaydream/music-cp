@@ -33,8 +33,10 @@ export default class AppStore implements IAppStore{
       post('/user/login', {}, {
         code
       }).then((resp) => {
-        this.user.info = resp as Info;
-        this.user.isLogin = true
+        if (resp) {
+          this.user.info = resp as Info;
+          this.user.isLogin = true
+        }
         resolve()
       }).catch(reject)
     })

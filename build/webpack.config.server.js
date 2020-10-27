@@ -27,7 +27,8 @@ module.exports = webpackMerge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env':{
         'NODE_ENV': JSON.stringify(isDev?'development':'production'),
-        'API_BASE': '"http://127.0.0.1:3333"'
+        // 本地模拟和线上配置不同
+        'API_BASE': JSON.stringify(process.env.NODE_ENV === 'production1' ?'http://127.0.0.1:3333':'http://music.daxierhao.com')
       },
     })
   ]
