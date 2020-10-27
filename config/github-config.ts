@@ -2,7 +2,7 @@
 // 请填写你申请的 OAuth App 的真实内容
 const clientConfig = {
   oauth_uri: 'https://github.com/login/oauth/authorize',
-  redirect_uri: 'https://music.daxierhao.com/user/login',
+  redirect_uri: 'http://music.daxierhao.com/user/login',
   client_id: '6690ff445efc453e1be7',
   client_secret: 'fae6119622b9144b1653f2f75b161807e0351674',
 };
@@ -21,7 +21,7 @@ const serverConfig = {
   user_url: 'https://api.github.com/user',
 
   // 生产环境
-  redirect_uri: 'https://music.daxierhao.com/user/login',
+  redirect_uri: 'http://music.daxierhao.com/user/login',
   client_id: '6690ff445efc453e1be7',
   client_secret: 'fae6119622b9144b1653f2f75b161807e0351674',
 };
