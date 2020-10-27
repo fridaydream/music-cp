@@ -36,9 +36,7 @@ const Home = () => {
   }
   return (
     <>
-      <Helmet>
-        <title>首页</title>
-      </Helmet>
+      
       <div>{themeStore.theme}</div>
       <button onClick={() => themeStore.setTheme('light')}>
         set theme: light
