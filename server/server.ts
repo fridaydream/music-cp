@@ -76,6 +76,6 @@ if (!isDev) {
   devStatic(app)
 }
 
-app.listen(80, () => {
+app.listen(3333, () => {
   console.log('server is listening in 3333')
 })
