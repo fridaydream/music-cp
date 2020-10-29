@@ -37,18 +37,6 @@ var CONFIG = {
 
 app.use(session(CONFIG, app));
 
-const router = new Router<DefaultState, Context>({
-  prefix: '/api'
-});
-
-router.post('/user/login', handleLogin)
-router.get('/user/info', handleUserInfo)
-router.get('/music/info', handleMusic)
-
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
-
 // app.use(favicon('http://www.baidu.com/favicon.ico'));
 
 // 第一个中间件
@@ -88,6 +76,18 @@ if (!isDev) {
 } else {
   devStatic(app)
 }
+
+const router = new Router<DefaultState, Context>({
+  prefix: '/api'
+});
+
+router.post('/user/login', handleLogin)
+router.get('/user/info', handleUserInfo)
+router.get('/music/info', handleMusic)
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 app.listen(3333, () => {
   console.log('server is listening in 3333')

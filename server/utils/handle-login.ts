@@ -12,13 +12,11 @@ interface User {
 }
 
 const handleLogin = async (ctx: Koa.Context, next: () => void) => {
-  // const user = ctx.session?.user || {}
-  const userStr = ctx.cookies.get('user');
-
-  if (userStr) {
-    console.log('userStr', userStr)
+  // @ts-ignore
+  const user = ctx.session.user || {}
+  if (user && user.name) {
     return ctx.body = {
-      data: JSON.parse(userStr),
+      data: user,
       errno: 0
     }
   }
@@ -69,19 +67,18 @@ const handleLogin = async (ctx: Koa.Context, next: () => void) => {
     email:  resp.data.email,
   }
 
+  console.log('userInfo', userInfo);
+
   // @ts-ignore
-  ctx.session.user = userInfo
+  ctx.session = {
+    user: userInfo
+  }
+
+  await next();
   ctx.body = {
     data: userInfo,
     errno: 0
   }
-
-  // @ts-ignore
-  ctx.session = {
-    logged: '1111'
-  }
-
-  await next();
 }
 
 export default handleLogin;
