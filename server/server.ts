@@ -5,8 +5,11 @@ import send from 'koa-send'
 import bodyparser from 'koa-bodyparser'
 import session from 'koa-session'
 import Router from '@koa/router'
+import cors from 'koa2-cors';
 import handleLogin from './utils/handle-login'
+import handleUserInfo from './utils/handle-user-info'
 import handleMusic from './utils/handle-music'
+import devStatic from './utils/dev-static'
 
 // import favicon from 'koa-favicon'
 import serverRender from './utils/server-render'
@@ -15,9 +18,11 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const app = new Koa();
 
+app.use(bodyparser())
+
 app.keys = ['some secret hurr'];
 
-const CONFIG = {
+var CONFIG = {
   key: 'koa:sess', /** (string) cookie key (default is koa:sess) */
   /** (number || 'session') maxAge in ms (default is 1 days) */
   /** 'session' will result in a cookie that expires when session/browser is closed */
@@ -32,16 +37,12 @@ const CONFIG = {
 
 app.use(session(CONFIG, app));
 
-app.use(bodyparser({
-  enableTypes: ['json', 'form', 'text']
-}))
-
 const router = new Router<DefaultState, Context>({
   prefix: '/api'
 });
 
 router.post('/user/login', handleLogin)
-router.get('/user/login', handleLogin)
+router.get('/user/info', handleUserInfo)
 router.get('/music/info', handleMusic)
 
 app
@@ -49,6 +50,20 @@ app
   .use(router.allowedMethods());
 
 // app.use(favicon('http://www.baidu.com/favicon.ico'));
+
+// 第一个中间件
+const errorCatch = async (ctx: Koa.Context, next: () => void) => {
+  try {
+    await next();
+  } catch(e) {
+    ctx.body = {
+      errno: 5000,
+      message: 'unknow error'
+    };
+  }
+}
+
+app.use(errorCatch);
 
 if (!isDev) {
   // 开发的时候用import需要放在最外面(这个文件可能没有)
@@ -63,7 +78,6 @@ if (!isDev) {
   app.use(async (ctx, next) => {
     if ((ctx.method === 'HEAD' || ctx.method === 'GET') && ctx.path.indexOf('/public/') === 0) {
       ctx.path = ctx.path.slice('/public/'.length);
-      console.log('ctx.path', ctx.path);
       await send(ctx, ctx.path, {
         index: 'index.html',
         root: path.join(__dirname, '../dist')
@@ -72,7 +86,6 @@ if (!isDev) {
     await next()
   })
 } else {
-  const devStatic = require('./utils/dev-static').default
   devStatic(app)
 }
 

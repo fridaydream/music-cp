@@ -15,6 +15,7 @@ export function requestInitialData(props: InitialStoresProps & QueryProps, compo
   useEffect(() => {
     // 客户端运行时
     if (typeof window !== 'undefined') {
+      console.log('window.location.pathname !== window.__SSRPATH__', window.location.pathname, window.__SSRPATH__)
       // 非同构时，并且getInitialProps存在
       if (window.location.pathname !== window.__SSRPATH__ && component.getInitialProps) {
         console.log('post===')

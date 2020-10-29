@@ -14,6 +14,10 @@ import {
   InitialStoresProps
 } from '@/store/types'
 
+import {
+  requestInitialData
+} from '@/utils/initialdata'
+
 const useStyles = makeStyles({
   root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -27,16 +31,22 @@ const useStyles = makeStyles({
 });
 
 const Home = () => {
-  const { themeStore } = useStores()
+  const stores = useStores()
+  const { themeStore } = stores
   const history = useHistory();
   const classes = useStyles();
+  requestInitialData({
+    stores,
+  }, Home)
   const gotoLogin = () => {
     // window.location.href = `${clientConfig.oauth_uri}?client_id=${clientConfig.client_id}&redirect_uri=${clientConfig.redirect_uri}`
     history.push('/user/login')
   }
   return (
     <>
-      
+      <Helmet>
+        <title>首页</title>
+      </Helmet>
       <div>{themeStore.theme}</div>
       <button onClick={() => themeStore.setTheme('light')}>
         set theme: light

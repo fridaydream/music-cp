@@ -1,6 +1,6 @@
 import { observable, action, toJS } from 'mobx'
 
-import { post } from '@/utils/http'
+import { post, get } from '@/utils/http'
 
 import {
   IAppStore,
@@ -28,11 +28,22 @@ export default class AppStore implements IAppStore{
   }
 
   @action login(code = '') {
-    console.log('code===', code)
     return new Promise((resolve, reject) => {
       post('/user/login', {}, {
         code
       }).then((resp) => {
+        if (resp) {
+          this.user.info = resp as Info;
+          this.user.isLogin = true
+        }
+        resolve()
+      }).catch(reject)
+    })
+  }
+
+  @action getUserInfo() {
+    return new Promise((resolve, reject) => {
+      get('/user/info', {}).then((resp) => {
         if (resp) {
           this.user.info = resp as Info;
           this.user.isLogin = true

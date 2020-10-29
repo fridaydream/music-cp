@@ -10,12 +10,6 @@ import jssPreset from 'jss-preset-default';
 
 import { IStores, RouterContext } from '../types';
 
-function sleep(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms)
-  })
-}
-
 const getStoreState = (stores: IStores) => {
   return (Object.keys(stores) as Array<keyof typeof stores>).reduce((result, storeName) => {
     result[storeName] = stores[storeName].toJson()
@@ -24,11 +18,18 @@ const getStoreState = (stores: IStores) => {
 }
 
 export default async (ctx: Koa.Context, next: () => void) => {
+  // @ts-ignore
+  console.log('server render in ===', ctx.session.user);
   const serverBundle = ctx.serverBundle;
   const template = ctx.template;
   const createStoreMap = serverBundle.createStoreMap
   const stores: IStores = createStoreMap()
 
+  const user = ctx.session?.user
+  if (user) {
+    stores.appStore.user.info = user
+    stores.appStore.user.isLogin = true
+  }
   // stores.themeStore.theme = 'dark'
   const createApp = serverBundle.default
   const routerContext: RouterContext = {}

@@ -47,6 +47,7 @@ export interface User {
 export interface IAppStore {
   user: User
   login: (code?: string) => Promise<unknown>;
+  getUserInfo: () => Promise<unknown>;
   toJson(): { user: User };
   init(arg0: User): void;
 }

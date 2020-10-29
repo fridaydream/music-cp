@@ -20,4 +20,9 @@ export const stores = {
 
 export const storesContext = React.createContext(stores)
 
-export const createStoreMap = () => (stores)
+export const createStoreMap = () => ({
+  counterStore: new CounterStore(),
+  themeStore: new ThemeStore(),
+  appStore: new AppStore(),
+  musicStore: new MusicStore(),
+})

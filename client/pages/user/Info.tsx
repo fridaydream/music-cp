@@ -1,15 +1,34 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom'
+import { observer } from 'mobx-react-lite'
 
 import {
   useStores,
 } from '@/store/use-stores'
 
+import {
+  InitialStoresProps
+} from '@/store/types'
+
+import {
+  requestInitialData
+} from '@/utils/initialdata'
+
+
 const Info = () => {
-  const { appStore: { user } } = useStores()
-  console.log('user', user.isLogin);
+  const stores = useStores()
+  const { appStore: { user } } = stores
+  requestInitialData({
+    stores
+  }, Info)
   if (!user.isLogin) {
-    return <>not login</>;
+    return <>
+      <br />
+      not login
+      <br />
+      <Link to="/user/login">go to login</Link>
+    </>;
   }
   return (
     <>
@@ -19,4 +38,8 @@ const Info = () => {
   )
 }
 
-export default Info
+Info.getInitialProps = async ({ stores }: InitialStoresProps) => {
+  await stores.appStore.getUserInfo()
+}
+
+export default observer(Info)

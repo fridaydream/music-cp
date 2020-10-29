@@ -1,4 +1,3 @@
-import qs from 'qs'
 import axios from 'axios'
 import Koa from 'koa'
 import queryString from 'query-string'
@@ -6,25 +5,35 @@ import {
   serverConfig
 } from '../../config/github-config'
 
-const handleLogin = async (ctx: Koa.Context) => {
-  const user = ctx.session!.user || {}
-  console.log('user', user);
-  if (user.name) {
+interface User {
+  name: string;
+  avatar_url: string;
+  email: string;
+}
+
+const handleLogin = async (ctx: Koa.Context, next: () => void) => {
+  // const user = ctx.session?.user || {}
+  const userStr = ctx.cookies.get('user');
+
+  if (userStr) {
+    console.log('userStr', userStr)
     return ctx.body = {
-      data: user,
+      data: JSON.parse(userStr),
       errno: 0
     }
   }
   const {
     code
   } = ctx.request.body
-  console.log('code', code);
+  console.log('code++++', code);
   if (!code) {
+    console.log('no code');
     return ctx.body = {
       message: 'code is required',
       errno: 4004
     }
   }
+  console.log('=======')
   const params = {
     client_id: serverConfig.client_id,
     client_secret: serverConfig.client_secret,
@@ -54,15 +63,25 @@ const handleLogin = async (ctx: Koa.Context) => {
   });
   console.log('login response', resp.data);
 
-  // @ts-ignore
-  ctx.session = {
-    user: resp.data
+  const userInfo: User = {
+    name: resp.data.name,
+    avatar_url:  resp.data.avatar_url,
+    email:  resp.data.email,
   }
 
+  // @ts-ignore
+  ctx.session.user = userInfo
   ctx.body = {
-    data: resp.data,
+    data: userInfo,
     errno: 0
   }
+
+  // @ts-ignore
+  ctx.session = {
+    logged: '1111'
+  }
+
+  await next();
 }
 
 export default handleLogin;

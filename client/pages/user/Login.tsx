@@ -1,8 +1,9 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import queryString from 'query-string'
+import Avatar from '@material-ui/core/Avatar';
+import { observer } from 'mobx-react-lite'
 
-import { Redirect } from 'react-router-dom'
 import {
   useStores,
 } from '@/store/use-stores'
@@ -34,18 +35,30 @@ const Login = () => {
       code
     }
   }, Login)
-  const { appStore } = stores
-  if (appStore.user.isLogin) {
-    return <Redirect to={'/user/info'} />
-  }
+  const { appStore: { user } } = stores
+  // if (appStore.user.isLogin) {
+  //   return <Redirect to={'/user/info'} />
+  // }
   return (
-    <Button variant="contained" color="primary" onClick={gotoLogin}>github login</Button>
+    <>
+      {
+        user.isLogin ?
+          <div>
+            已登陆
+            <Avatar alt="avator" src={user.info.avatar_url} />
+            {user.info.name}
+          </div> :
+          <Button variant="contained" color="primary" onClick={gotoLogin}>github login</Button>
+      }
+
+    </>
   )
 }
 
 Login.getInitialProps = async ({ stores, query }: InitialStoresProps & QueryProps) => {
   const code = query?.code
+  console.log('query code', code);
   await stores.appStore.login(code)
 }
 
-export default Login
+export default observer(Login)
