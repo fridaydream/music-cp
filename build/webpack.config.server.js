@@ -28,8 +28,8 @@ module.exports = webpackMerge(baseConfig, {
       'process.env':{
         'NODE_ENV': JSON.stringify(isDev?'development':'production'),
         // 本地模拟和线上配置不同
-        // 'API_BASE': JSON.stringify(process.env.NODE_ENV === 'production1' ?'http://127.0.0.1:3333':'http://music.daxierhao.com')
-        'API_BASE': JSON.stringify('http://localhost:3333')
+        'API_BASE': JSON.stringify(process.env.NODE_ENV === 'production1' ?'http://127.0.0.1:3333':'http://music.daxierhao.com')
+        // 'API_BASE': JSON.stringify('http://localhost:3333')
       },
     })
   ]

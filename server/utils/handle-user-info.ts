@@ -12,10 +12,6 @@ const handleUserInfo = async (ctx: Koa.Context, next: () => void) => {
     data: null,
     errno: 0
   }
-  // @ts-ignore
-  ctx.session = {
-    logged: '1111'
-  }
   console.log('handle in');
   await next();
 }
