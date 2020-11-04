@@ -1,10 +1,4 @@
-import qs from 'qs'
-import axios from 'axios'
 import Koa from 'koa'
-import queryString from 'query-string'
-import {
-  serverConfig
-} from '../../config/github-config'
 
 import { musicList } from '../../config/music-config'
 

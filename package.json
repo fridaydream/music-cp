@@ -13,6 +13,7 @@
     "server:server": "cross-env NODE_ENV=production nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
     "pm2": "NODE_ENV=production pm2 start --interpreter ./node_modules/.bin/ts-node server/server.ts",
     "build": "npm run clear && npm run build:client && npm run build:server",
+    "build:now": "npm run clear && npm run build:client && npm run build:server && tsc server/*.ts",
     "clear": "rimraf dist",
     "start": "node server/server.ts",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx",

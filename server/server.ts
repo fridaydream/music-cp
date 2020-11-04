@@ -5,7 +5,6 @@ import send from 'koa-send'
 import bodyparser from 'koa-bodyparser'
 import session from 'koa-session'
 import Router from '@koa/router'
-import cors from 'koa2-cors';
 import handleLogin from './utils/handle-login'
 import handleUserInfo from './utils/handle-user-info'
 import handleMusic from './utils/handle-music'
