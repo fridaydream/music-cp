@@ -13,7 +13,8 @@ import devStatic from './utils/dev-static'
 // import favicon from 'koa-favicon'
 import serverRender from './utils/server-render'
 
-const isDev = process.env.NODE_ENV === 'development'
+// const isDev = process.env.NODE_ENV !== 'production'
+const isDev = false
 
 const app = new Koa();
 
@@ -63,7 +64,8 @@ if (!isDev) {
   });
   app.use(serverRender);
   app.use(async (ctx, next) => {
-    if ((ctx.method === 'HEAD' || ctx.method === 'GET') && ctx.path.indexOf('/public/') === 0) {
+    console.log('ctx.path', ctx.path)
+    if (ctx.path.indexOf('/public/') === 0) {
       ctx.path = ctx.path.slice('/public/'.length);
       await send(ctx, ctx.path, {
         index: 'index.html',
@@ -88,6 +90,7 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-app.listen(3333, () => {
-  console.log('server is listening in 3333')
-})
+// app.listen(3333, () => {
+//   console.log('server is listening in 3333')
+// })
+module.exports = app.callback()

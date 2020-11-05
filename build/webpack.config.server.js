@@ -20,7 +20,8 @@ module.exports = webpackMerge(baseConfig, {
   output: {
     filename: 'server-entry.js',
     path: path.join(__dirname, '../dist'),
-    publicPath: '/',
+    // publicPath: '/',
+    publicPath: isDev ? '/' : '//cdn.yonyoucloud.com/cp-music/code/',
     libraryTarget: 'commonjs2'
   },
   plugins: [

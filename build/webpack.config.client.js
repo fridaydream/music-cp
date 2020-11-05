@@ -13,7 +13,7 @@ const config = webpackMerge(baseConfig, {
   output: {
     filename: '[name].[hash:8].js',
     path: path.join(__dirname, '../dist'),
-    publicPath: '/public/'
+    publicPath: isDev ? '/public/' : '//cdn.yonyoucloud.com/cp-music/code/'
   },
   plugins: [
     new HTMLPlugin({

@@ -13,7 +13,7 @@
     "server:server": "cross-env NODE_ENV=production nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
     "pm2": "NODE_ENV=production pm2 start --interpreter ./node_modules/.bin/ts-node server/server.ts",
     "build": "npm run clear && npm run build:client && npm run build:server",
-    "build:now": "npm run clear && npm run build:client && npm run build:server && tsc server/*.ts",
+    "build:now": "npm i && npm run clear && npm run build:client && npm run build:server && tsc server/*.ts",
     "clear": "rimraf dist",
     "start": "node server/server.ts",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx",
@@ -76,7 +76,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-use-audio-player": "^1.2.2",
-    "serialize-javascript": "^5.0.1"
+    "serialize-javascript": "^5.0.1",
+    "vercel": "^20.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

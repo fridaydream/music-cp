@@ -1,4 +1,8 @@
 node_modules
-dist
+
 .vscode
 .DS_Store
+
+.vercel
+
+server/**/*.js
