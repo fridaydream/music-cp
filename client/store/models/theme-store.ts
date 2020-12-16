@@ -27,7 +27,7 @@ const getData = async () => {
 }
 
 export default class ThemeStore implements IThemeStore {
-  'constructor'({ theme, news } : IThemeStoreProps = { theme: 'light', news: [] }) {
+  'constructor'({ theme, news } : IThemeStoreProps = { theme: 'dark', news: [] }) {
     this.theme = theme;
     this.news = news;
   }

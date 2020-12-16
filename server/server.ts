@@ -13,8 +13,8 @@ import devStatic from './utils/dev-static'
 // import favicon from 'koa-favicon'
 import serverRender from './utils/server-render'
 
-// const isDev = process.env.NODE_ENV !== 'production'
-const isDev = false
+const isDev = process.env.NODE_ENV !== 'production'
+// const isDev = false
 
 const app = new Koa();
 
@@ -90,7 +90,7 @@ app
   .use(router.routes())
   .use(router.allowedMethods());
 
-// app.listen(3333, () => {
-//   console.log('server is listening in 3333')
-// })
+app.listen(3333, () => {
+  console.log('server is listening in 3333')
+})
 module.exports = app.callback()

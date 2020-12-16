@@ -59,7 +59,6 @@ const videoList = [{
   poster: '//erp-1258916733.cos.ap-shanghai.myqcloud.com/fe-share-pic/ssr.png',
 }]
 
-
 export default (request: NowRequest, response: NowResponse) => {
   const id = request.query.id
   // 如果没有id，查询所有
@@ -80,5 +79,4 @@ export default (request: NowRequest, response: NowResponse) => {
     message: 'id is not exist',
     errno: 4004
   })
-
 }

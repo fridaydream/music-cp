@@ -30,7 +30,7 @@ export default async (ctx: Koa.Context, next: () => void) => {
     stores.appStore.user.info = user
     stores.appStore.user.isLogin = true
   }
-  // stores.themeStore.theme = 'dark'
+  stores.themeStore.theme = 'dark'
   const createApp = serverBundle.default
   const routerContext: RouterContext = {}
   const sheetsManager = new Map();

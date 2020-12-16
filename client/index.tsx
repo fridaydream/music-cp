@@ -45,7 +45,7 @@ const render = (Component: React.ComponentType) => {
       <AudioPlayerProvider>
         <BrowserRouter>
           <ThemeProvider theme={theme}>
-              <Component />
+            <Component />
           </ThemeProvider>
         </BrowserRouter>
       </AudioPlayerProvider>

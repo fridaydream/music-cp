@@ -49,7 +49,7 @@ const Home = () => {
       </Helmet>
       <div>{themeStore.theme}</div>
       <button onClick={() => themeStore.setTheme('light')}>
-        set theme: light
+        set theme: light1111
       </button>
       <button onClick={() => themeStore.setTheme('dark')}>
         set theme: dark
