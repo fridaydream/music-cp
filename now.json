@@ -5,23 +5,12 @@
     {
       "src": "server/server.ts",
       "use": "@now/node"
-    },
-    {
-      "src": "server/list.ts",
-      "use": "@now/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/video/info",
-      "dest": "server/list.ts"
-    },
-    {
-      "src": "/(.*)",
+      "src": "/",
       "dest": "server/server.ts"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }

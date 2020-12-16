@@ -19,7 +19,6 @@ const getStoreState = (stores: IStores) => {
 
 export default async (ctx: Koa.Context, next: () => void) => {
   // @ts-ignore
-  console.log('server render in ===', ctx.session.user);
   const serverBundle = ctx.serverBundle;
   const template = ctx.template;
   const createStoreMap = serverBundle.createStoreMap
@@ -61,5 +60,4 @@ export default async (ctx: Koa.Context, next: () => void) => {
     materialCss: sheetsRegistry.toString()
   })
   ctx.body = html;
-  await next();
 }

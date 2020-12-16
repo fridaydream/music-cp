@@ -13,8 +13,7 @@ import devStatic from './utils/dev-static'
 // import favicon from 'koa-favicon'
 import serverRender from './utils/server-render'
 
-const isDev = process.env.NODE_ENV !== 'production'
-// const isDev = false
+// const isDev = process.env.NODE_ENV !== 'production'
 
 const app = new Koa();
 
@@ -37,23 +36,21 @@ var CONFIG = {
 
 app.use(session(CONFIG, app));
 
+const router = new Router<DefaultState, Context>({
+  prefix: '/api'
+});
+
+router.post('/user/login', handleLogin)
+router.get('/user/info', handleUserInfo)
+router.get('/music/info', handleMusic)
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
+
 // app.use(favicon('http://www.baidu.com/favicon.ico'));
 
-// 第一个中间件
-const errorCatch = async (ctx: Koa.Context, next: () => void) => {
-  try {
-    await next();
-  } catch(e) {
-    ctx.body = {
-      errno: 5000,
-      message: 'unknow error'
-    };
-  }
-}
-
-app.use(errorCatch);
-
-if (!isDev) {
+// if (!isDev) {
   // 开发的时候用import需要放在最外面(这个文件可能没有)
   const serverEntry = require('../dist/server-entry')
   let template = fs.readFileSync(path.join(__dirname, '../dist/server.ejs'), 'utf8')
@@ -74,23 +71,12 @@ if (!isDev) {
     }
     await next()
   })
-} else {
-  devStatic(app)
-}
-
-const router = new Router<DefaultState, Context>({
-  prefix: '/api'
-});
-
-router.post('/user/login', handleLogin)
-router.get('/user/info', handleUserInfo)
-router.get('/music/info', handleMusic)
-
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+// } else {
+//   devStatic(app)
+// }
 
 app.listen(3333, () => {
   console.log('server is listening in 3333')
 })
+
 module.exports = app.callback()
