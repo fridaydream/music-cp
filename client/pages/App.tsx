@@ -48,7 +48,7 @@ const App = () => {
   const { musicStore: { music: { list }} } = stores;
   return (
     <div>
-      <Link to="/home">
+      {/* <Link to="/home">
         首页
       </Link>
       <Link to="/user/info">
@@ -56,7 +56,7 @@ const App = () => {
       </Link>
       <Link to="/play">
         播放页
-      </Link>
+      </Link> */}
       <Routes />
       <CssBaseline />
       {

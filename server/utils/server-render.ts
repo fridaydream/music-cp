@@ -9,7 +9,7 @@ import { create, SheetsRegistry } from 'jss';
 import jssPreset from 'jss-preset-default';
 
 import { IStores, RouterContext } from '../types';
-
+console.log('enter===');
 const getStoreState = (stores: IStores) => {
   return (Object.keys(stores) as Array<keyof typeof stores>).reduce((result, storeName) => {
     result[storeName] = stores[storeName].toJson()

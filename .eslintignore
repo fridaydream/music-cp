@@ -3,3 +3,4 @@ dist
 build
 client/template.html
 client/server.template.ejs
+client/pages/excel/*

@@ -4,10 +4,13 @@ import path from 'path'
 import send from 'koa-send'
 import bodyparser from 'koa-bodyparser'
 import session from 'koa-session'
+import koaBody from 'koa-body'
 import Router from '@koa/router'
 import handleLogin from './utils/handle-login'
 import handleUserInfo from './utils/handle-user-info'
 import handleMusic from './utils/handle-music'
+import handleExcel from './utils/handle-excel'
+
 import devStatic from './utils/dev-static'
 
 // import favicon from 'koa-favicon'
@@ -36,6 +39,15 @@ var CONFIG = {
 
 app.use(session(CONFIG, app));
 
+const option = {
+  multipart: true,
+  formidable: {
+    maxFileSize: 2000 * 1024 * 1024 //最大2G
+  }
+};
+
+app.use(koaBody(option));
+
 const router = new Router<DefaultState, Context>({
   prefix: '/api'
 });
@@ -43,6 +55,7 @@ const router = new Router<DefaultState, Context>({
 router.post('/user/login', handleLogin)
 router.get('/user/info', handleUserInfo)
 router.get('/music/info', handleMusic)
+router.get('/update/excel', handleExcel)
 
 app
   .use(router.routes())

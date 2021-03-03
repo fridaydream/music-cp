@@ -7,6 +7,8 @@ import Home from '@/pages/home/Index'
 import Info from '@/pages/user/Info'
 import Login from '@/pages/user/Login'
 import Play from '@/pages/play/Index'
+import Excel from '@/pages/excel/Index'
+
 
 export default () => (
   <>
@@ -15,6 +17,7 @@ export default () => (
     <Route path="/user/info" component={Info} />
     <Route path="/user/login" component={Login} />
     <Route path="/play" component={Play} />
+    <Route path="/excel" component={Excel} />
   </>
 )
 
@@ -48,6 +51,14 @@ export const routes = [
     exact: true,
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     Component: () => (require('../pages/play/Index').default),
+    // controller: 'page',
+    // handler: 'index'
+  },
+  {
+    path: '/excel',
+    exact: true,
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    Component: () => (require('../pages/excel/Index').default),
     // controller: 'page',
     // handler: 'index'
   }
